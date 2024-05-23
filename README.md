@@ -19,7 +19,7 @@ Allows sorting in ascending or descending order on all columns
 
 `cd SampleTable`
 
-###Install the dependencies:
+### Install the dependencies:
 
 `npm install`
 
