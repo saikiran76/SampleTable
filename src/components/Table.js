@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import useFetchBooks from '../hooks/useFetchBooks';
+import {useFetchBooks} from '../hooks/useFetchBooks';
 import useSortBooks from '../hooks/useSorter';
 import usePagination from '../hooks/usePagination';
 import Pagination from './Pagination';
