@@ -1,6 +1,9 @@
 # Admin Dashboard for Books
 This project is an admin dashboard table for listing book records. The data is fetched from the Open Library API and displayed in a tabular format. The table includes support for pagination and sorting.
 
+## Snaps of the Table
+![image](https://github.com/saikiran76/SampleTable/assets/80874246/e1b83f62-6e38-44b9-9849-279c86664197)
+
 ## Features
 Fetches book data from the Open Library API
 Supports pagination with options to display 10, 50, or 100 records per page
