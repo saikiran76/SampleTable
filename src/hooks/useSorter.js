@@ -4,7 +4,7 @@ const useSortBooks = (books) => {
     const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
 
     const sortedBooks = useMemo(() => {
-        if (!books) return [];
+        if (!books.reading_log_entries) return [];
         const sortableBooks = [...books.reading_log_entries];
         if (sortConfig.key) {
             sortableBooks.sort((a, b) => {
