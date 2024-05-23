@@ -6,10 +6,11 @@ import Pagination from './Pagination';
 import UserData from './Data';
 import { RiArrowDropUpFill } from "react-icons/ri";
 import { API } from '../utils/constants';
+import { Loader } from '../utils/Loader';
 
 const Table = () => {
     const [recordsPerPage, setRecordsPerPage] = useState(10);
-    const books = useFetchBooks(API);
+    const {loading, books} = useFetchBooks(API);
     const { sortedBooks, handleSort } = useSortBooks(books);
     const { paginatedItems, currentPage, totalPages, handlePageChange, setCurrentPage } = usePagination(sortedBooks, recordsPerPage);
 
@@ -43,6 +44,7 @@ const Table = () => {
                     </tr>
                 </thead>
                 <tbody>
+                    {loading && <Loader />}
                     <UserData books={paginatedItems} />
                 </tbody>
             </table>
