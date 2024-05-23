@@ -4,6 +4,7 @@ import useSortBooks from '../hooks/useSorter';
 import usePagination from '../hooks/usePagination';
 import Pagination from './Pagination';
 import UserData from './Data';
+import { RiArrowDropUpFill } from "react-icons/ri";
 import { API } from '../constants';
 
 const Table = () => {
@@ -31,10 +32,11 @@ const Table = () => {
                         {['cover_id', 'title', 'first_publish_year', 'cover_edition_key'].map(key => (
                             <th
                                 key={key}
-                                className="border-purple-800 p-6 leading-relaxed cursor-pointer"
+                                className={`border-purple-800 p-6 leading-relaxed cursor-pointer ${key === 'title' && 'flex items-center'}`}
                                 onClick={() => handleSort(key)}
                             >
                                 {key}
+                                {key === "title" && <RiArrowDropUpFill/>}
                             </th>
                         ))}
                     </tr>
