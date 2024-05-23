@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
-import {useFetchBooks} from '../hooks/useFetchBooks';
+import useFetchBooks from '../hooks/useFetchBooks';
 import useSortBooks from '../hooks/useSorter';
 import usePagination from '../hooks/usePagination';
 import Pagination from './Pagination';
 import UserData from './Data';
 import { RiArrowDropUpFill } from "react-icons/ri";
-import { API } from '../constants';
+import { API } from '../utils/constants';
 
 const Table = () => {
     const [recordsPerPage, setRecordsPerPage] = useState(10);
     const books = useFetchBooks(API);
     const { sortedBooks, handleSort } = useSortBooks(books);
     const { paginatedItems, currentPage, totalPages, handlePageChange, setCurrentPage } = usePagination(sortedBooks, recordsPerPage);
-
-    console.log("tHE BOOKS",books)
 
     return (
         <>
@@ -51,5 +49,7 @@ const Table = () => {
         </>
     );
 }
+
+export default Table;
 
 export default Table;
