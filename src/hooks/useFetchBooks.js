@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import { useCallback } from 'react';
-const URL = "http://openlibrary.org/search.json?title=";
+import { API } from '../utils/constants';
 
 
 export const useFetchBooks = () => {
@@ -12,7 +12,7 @@ export const useFetchBooks = () => {
     const fetchBooks = useCallback(async () => {
         setLoading(true);
         try {
-            const response = await fetch(`${URL}${searchTerm}`);
+            const response = await fetch(`${API}${searchTerm}`);
             const data = await response.json();
             console.log("Initial Data", data);
             const {
