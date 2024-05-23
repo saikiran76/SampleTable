@@ -13,6 +13,8 @@ const Table = () => {
     const { sortedBooks, handleSort } = useSortBooks(books);
     const { paginatedItems, currentPage, totalPages, handlePageChange, setCurrentPage } = usePagination(sortedBooks, recordsPerPage);
 
+    console.log("tHE BOOKS",books)
+
     return (
         <>
             <div className="flex justify-between items-center my-4">
@@ -29,7 +31,7 @@ const Table = () => {
             <table className="mx-auto rounded-2xl border-hidden bg-transparent shadow border-black border overflow-hidden max-w-screen-lg font-poppins">
                 <thead className="text-xl bg-purple-800 text-white">
                     <tr>
-                        {['cover_id', 'title', 'first_publish_year', 'cover_edition_key'].map(key => (
+                        {['cover_id', 'title', 'first_publish_year', 'cover_edition_key', 'author_names'].map(key => (
                             <th
                                 key={key}
                                 className={`border-purple-800 p-6 leading-relaxed cursor-pointer ${key === 'title' && 'flex items-center'}`}
@@ -37,6 +39,7 @@ const Table = () => {
                             >
                                 {key}
                                 {key === "title" && <RiArrowDropUpFill/>}
+                                {/* {key === "author_names" && key.map((item)=>(<p>{item}</p>)) } */}
                             </th>
                         ))}
                     </tr>
