@@ -1,72 +1,26 @@
-import {useState, useEffect} from 'react';
-import { useCallback } from 'react';
-import { API } from '../utils/constants';
+import { useState, useEffect } from 'react';
 
-
-export const useFetchBooks = () => {
-    const [searchTerm, setSearchTerm] = useState("The Liberation of Sita");
+const useFetchBooks = (url) => {
     const [books, setBooks] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [resultTitle, setResultTitle] = useState("");
-
-    const fetchBooks = useCallback(async () => {
-        setLoading(true);
-        try {
-            const response = await fetch(`${API}${searchTerm}`);
-            const data = await response.json();
-            console.log("Initial Data", data);
-            const {
-                docs
-            } = data;
-            console.log(docs);
-
-            if (docs) {
-                const newBooks = docs.map((bookSingle) => {
-                    const {
-                        key,
-                        author_name,
-                        cover_i,
-                        edition_count,
-                        first_publish_year,
-                        title
-                    } = bookSingle;
-
-                    return {
-                        id: key,
-                        author: author_name,
-                        cover_id: cover_i,
-                        edition_count: edition_count,
-                        first_publish_year: first_publish_year,
-                        title: title
-                    };
-                });
-
-                setBooks(newBooks);
-
-                if (newBooks.length > 1) {
-                    setResultTitle("Your Search Result");
-                } else {
-                    setResultTitle("No Search Result Found!");
-                }
-            } else {
-                setBooks([]);
-                setResultTitle("No Search Result Found!");
-            }
-            setLoading(false);
-        } catch (error) {
-            console.log(error);
-            setLoading(false);
-        }
-
-        return books;
-    }, [searchTerm]);
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        fetchBooks();
-    }, [searchTerm, fetchBooks]);
+        const fetchData = async () => {
+            const response = await fetch(url);
+            const data = await response.json();
+            setBooks(data);
+        };
+        fetchData();
+        setTimeout(() => {
+            setLoading(false)
+        }, 5000);
+        
+    }, [url]);
 
+    return {loading, books};
 };
 
+export default useFetchBooks;
 
 
 
