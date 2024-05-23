@@ -7,12 +7,24 @@ import UserData from './Data';
 import { RiArrowDropUpFill } from "react-icons/ri";
 import { API } from '../utils/constants';
 import { Loader } from '../utils/Loader';
+import { FaSearch } from "react-icons/fa";
+
 
 const Table = () => {
     const [recordsPerPage, setRecordsPerPage] = useState(10);
     const {loading, books} = useFetchBooks(API);
     const { sortedBooks, handleSort } = useSortBooks(books);
-    const { paginatedItems, currentPage, totalPages, handlePageChange, setCurrentPage } = usePagination(sortedBooks, recordsPerPage);
+    
+    const [searchQuery, setSearchQuery] = useState("");
+
+    const filteredBooks = sortedBooks.filter(book => {
+        const authorNames = Array.isArray(book.work.author_names)
+            ? book.work.author_names.join(' ')
+            : book.work.author_names;
+        return authorNames.toLowerCase().includes(searchQuery.toLowerCase());
+    });
+
+    const { paginatedItems, currentPage, totalPages, handlePageChange, setCurrentPage } = usePagination(filteredBooks, recordsPerPage);
 
     return (
         <>
@@ -24,6 +36,16 @@ const Table = () => {
                         <option value={50}>50</option>
                         <option value={100}>100</option>
                     </select>
+                </div>
+                <div className='flex items-center'>
+                    Search by author <span className='m-1'><FaSearch/></span>
+                    <input
+                        type="text"
+                        className='p-2 border-violet-500 border-r border-l border-t border-b rounded-md m-2'
+                        value={searchQuery}
+                        onChange={e => setSearchQuery(e.target.value)}
+                        placeholder={`Search`}
+                    />
                 </div>
                 <Pagination totalPages={totalPages} currentPage={currentPage} handlePageChange={handlePageChange} />
             </div>
